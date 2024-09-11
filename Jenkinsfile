@@ -17,5 +17,16 @@ pipeline {
 
             }        
         }
+        stage('Generate Test Reports') {
+           steps {
+               publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/FinanceMe/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    }
+            }
+        stage('Create Docker Image') {
+           steps {
+               sh 'docker build -t chandana3651/finance-me:1.0 .'
+                    }
+                }
+        
   }
 }
