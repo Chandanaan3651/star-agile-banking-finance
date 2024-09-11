@@ -27,6 +27,18 @@ pipeline {
                sh 'docker build -t chandana3651/finance-me:1.0 .'
                     }
                 }
+        stage('Docker-Login') {
+           steps {
+               withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'dockerpassword', usernameVariable: 'dockerhub')]) {
+               sh 'docker login -u ${dockerhub} -p ${dockerpassword}'
+                                   }
+                        }
+                }
+        stage('Push-Image') {
+           steps {
+               sh 'docker push chandana3651/finance-me:1.0'
+                     }
+                }
         
   }
 }
